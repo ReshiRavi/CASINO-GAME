@@ -1,0 +1,136 @@
+            /*CASINO GAME*/
+
+//header_file
+#include<iostream>
+#include<string>
+#include<conio.h>
+#include<cstdlib>//to generate random numbers
+#include<ctime>
+using namespace std;
+
+//functions
+void drawline(int n,char symbol);
+void rules();
+
+//main function
+int main()
+{
+    //declaring variables
+    string player_name;//name of player
+    int amount;//players amount balance
+    int betting_amount;
+    int guess;//guess number
+    int dice;
+    char choice;
+    srand(time(0));//seed random generator
+    system("cls");
+    system("color 0A");
+
+    drawline(60,'_');
+    cout<<"\n\n\n\tCASINO GAME\n\n\n\n";
+    drawline(60,'_');
+
+    getch();
+    system("cls");
+    cout<<"\n\n\n\tENTER YOUR NAME : ";
+    getline(cin,player_name);
+
+    cout<<"\n\n\n\tENTER AMOUNT TO BE DEPOSITED : ";
+    cin>>amount;
+    cout<<"\n\n\n\tTHE GAME BEGINS";
+     rules();
+     getch();
+     do
+     {
+        //getting amount to be bet
+        system("cls");
+        do
+        {
+
+            cout<<"\n\n\n\t"<<player_name<<" PLEASE ENTER MONEY TO BET : ";
+            cin>>betting_amount;
+
+            if(betting_amount > amount)
+            {
+                cout<<"\n\n\n\tYOUR BETTING AMOUNT IS GREATER THAN CURRENT BALANCE";
+                cout<<"\n\n\n\tRE-ENTER DATA";
+            }
+        }
+        while(betting_amount > amount);
+
+        //getting players number to be bet
+        system("cls");
+        do
+        {
+            cout<<"\n\n\n\tGUESS THE NUMBER TO BET : ";
+            cin>>guess;
+
+        //guess number should between 1 t0 10
+            if(guess <=0 || guess>10)
+            {
+                cout<<"\n\n\tPLEASE CHECK TH NUMBER!";
+                cout<<"\n\tTHE NUMBER SHOULD BE BETWEEN 1 AND 10";
+            }
+        }
+        while(guess<=0 || guess>10);
+
+        system("cls");
+
+        dice=rand()%10+1;//will hold random number between 1 to 10
+        if(dice == guess )
+        {
+            cout<<"\n\n\tGOOD LUCK!!";
+            cout<<"\n\tYOU WON RS."<<betting_amount*10;
+            amount=amount+betting_amount*10;
+        }
+        else
+        {
+            cout<<"\n\n\tBAD LUCK!!";
+            cout<<"\n\tYOU LOST RS."<<betting_amount;
+            amount=amount-betting_amount;
+        }
+        cout<<"\n\tTHE WINNING NUMBER IS : "<<dice;
+        cout<<"\n\t"<<player_name<<", YOUHAVE RS "<<amount<<"\n";
+        if(amount==0)
+        {
+
+            cout<<"\n\tYOU HAVE NO MONEY TO PLAY";
+            break;
+        }
+        cout<<"\n\n\t--->DO YOU WANT TO PLAY AGAIN (Y/N)?";
+        cin>>choice;
+     }while(choice =='y'||choice == 'Y');
+
+     system("cls");
+     cout<<"\n\n\n";
+     drawline(70,'=');
+     cout<<"\n\n\tTHANKS FOR PLAYING GAME";
+     cout<<"\n\tYOUR BALANCE AMOUNT IS RS "<<amount<<"\n\n\n";
+     drawline(70,'=');
+
+    return 0;
+}
+
+//function to print lines
+void drawline(int n,char symbol)
+{
+    for(int i=0;i<n;i++)
+    {
+        cout<<symbol;
+    }
+    cout<<"\n";
+}
+
+//declaring the rules
+void rules()
+{
+    system("cls");
+    cout << "\n\n";
+    drawline(80,'-');
+    cout << "\t\tRULES OF THE GAME\n";
+    drawline(80,'-');
+    cout << "\t1. Choose any number between 1 to 10\n";
+    cout << "\t2. If you win you will get 10 times of money you bet\n";
+    cout << "\t3. If you bet on wrong number you will lose your betting amount\n\n";
+    drawline(80,'-');
+}
